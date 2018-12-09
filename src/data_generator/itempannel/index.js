@@ -20,21 +20,29 @@ class Itempannel extends Component {
   }
 
   componentDidMount() {
-    this.setDragable('cbn_uid')
-    this.setDragable('dev_uid')
+    this.setDragable('rms_cbn_uid')
+    this.setDragable('rms_dev_uid')
+  }
+
+  handleMenuClick(ev) {
+    console.log(ev)
   }
 
   render() {
     return (
       <LeftWrapper>
-        <Menu mode="inline" style={{ width: '100%' }}>
-          <Menu.Item key="2" id="cbn_uid">
+        <Menu
+          mode="inline"
+          style={{ width: '100%' }}
+          onClick={this.handleMenuClick}
+        >
+          <Menu.Item key="rms_cbn_uid" id="rms_cbn_uid">
             <span>
               <Icon type="table" />
               组合模式核心管护表
             </span>
           </Menu.Item>
-          <Menu.Item key="3" id="dev_uid">
+          <Menu.Item key="rms_dev_uid" id="rms_dev_uid">
             <span>
               <Icon type="table" />
               传统模式核心管护表

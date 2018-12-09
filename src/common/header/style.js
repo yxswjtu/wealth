@@ -14,23 +14,45 @@ export const HeaderWrapper = styled.div`
 `
 
 export const Logo = styled.a`
-	color: #fff;
-    display: block;
-    font-size: 24px;
-    font-family: Roboto,sans-serif;
-    white-space: nowrap;
-    float: left;
-    line-height: 60px;
+  color: #fff;
+  display: block;
+  font-size: 24px;
+  font-family: Roboto, sans-serif;
+  white-space: nowrap;
+  float: left;
+  line-height: 60px;
 `
 
 export const LeftSideBar = styled.ul`
-	width: 180px;
-    top: 66px;
-    left: 0;
-    z-index: 904;
-    display: block;
-    min-height: 100%;
-    background-color: #1C2B36;
-    height: 100%;
-    position: fixed;
+  width: 180px;
+  top: 66px;
+  left: 0;
+  z-index: 904;
+  display: block;
+  min-height: 100%;
+  background-color: #1c2b36;
+  height: 100%;
+  position: fixed;
+`
+
+export const DataManager = styled.div`
+  color: #fff;
+  display: block;
+  font-size: 18px;
+  padding-left:120px
+  font-family: Roboto, sans-serif;
+  white-space: nowrap;
+  float: left;
+  line-height: 60px;
+`
+
+export const DataQuery = styled.div`
+  color: #fff;
+  display: block;
+  font-size: 18px;
+  padding-left:50px
+  font-family: Roboto, sans-serif;
+  white-space: nowrap;
+  float: left;
+  line-height: 60px;
 `

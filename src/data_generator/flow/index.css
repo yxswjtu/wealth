@@ -1,8 +1,7 @@
 .item {
   position: absolute;
-  height: 300px;
-  width: 200px;
-  border: 1px solid blue;
+  width: 280px;
+  box-sizing: border-box;
 }
 
 .can {

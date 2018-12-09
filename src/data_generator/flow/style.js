@@ -19,7 +19,7 @@ export const Card = styled.div`
 
 export const Canvas = styled.div`
   width: 100%;
-  height: 884px;
+  height: 824px;
   position: fixed;
   box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5);
   padding: 0 0 0 0;

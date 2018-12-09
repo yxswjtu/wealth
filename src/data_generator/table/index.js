@@ -1,66 +1,142 @@
 import React, { Component } from 'react'
-import { Select } from 'antd'
-import TableUI from './TableUI'
+import { List, Select, Icon, Input } from 'antd'
+//import { RightClose } from './style'
+//import { jsPlumb } from 'jsplumb'
 
 const Option = Select.Option
 
-const table_data = [
-  {
-    key: '0',
-    name: 'rms_table_name',
-    data: {
-      ID: [
-        { text: '用户1', value: 'val1', key: '0' },
-        { text: '用户2', value: 'val2', key: '1' }
-      ],
-      passwd: [
-        { text: '密码1', value: 'passwd1', key: '2' },
-        { text: '密码2', value: 'passwd2', key: '3' }
-      ]
-    }
+const connectorStyle = { stroke: '#7AB02C', strokeWidth: 2, joinstyle: 'round' }
+const connectorHoverStyle = { stroke: '#5c96bc', strokeWidth: 3 }
+const endpointStyle = {
+  fill: 'transparent',
+  stroke: '#7AB02C',
+  radius: 7,
+  strokeWidth: 1
+}
+const endpointHoverStyle = {
+  fill: '#5c96bc',
+  stroke: '#5c96bc',
+  radius: 7,
+  strokeWidth: 1
+}
+const anEndpoint = {
+  connector: 'Straight',
+  endpoint: 'Dot',
+  isSource: true,
+  isTarget: true,
+  paintStyle: endpointStyle,
+  hoverPaintStyle: endpointHoverStyle,
+  connectorStyle: connectorStyle,
+  connectorHoverStyle: connectorHoverStyle,
+  id: 'wyx'
+}
+
+const table_data = {
+  rms_cbn_uid: {
+    table_cname: '中文表明',
+    columns: [
+      {
+        key: 'rms_cbn_uid.Src_Cd',
+        cname: '类型',
+        values: [655, 755, 756]
+      },
+      {
+        key: 'rms_cbn_uid.Src_Cd2',
+        cname: '类型',
+        values: [655, 755, 756]
+      },
+      {
+        key: 'rms_cbn_uid.Src_Cd3',
+        cname: '类型',
+        values: [655111, 75511111, 75611111]
+      },
+      {
+        key: 'rms_cbn_uid.Src_Cd4',
+        cname: '分行审批人',
+        values: [655111, 75511111, 75611111]
+      },
+      {
+        key: 'rms_cbn_uid.Src_Cd5',
+        cname: '分行审批人',
+        values: [655111, 75511111, 75611111]
+      }
+    ]
+  },
+  rms_dev_uid: {
+    table_cname: '中文表明2',
+    columns: [
+      {
+        key: 'rms_dev_uid.Src_Cd5',
+        cname: '类型',
+        values: [655, 755, 756]
+      },
+      {
+        key: 'rms_dev_uid.Src_Cd6',
+        cname: '分行审批人',
+        values: [655111, 75511111, 75611111]
+      },
+      {
+        key: 'rms_dev_uid.Src_Cd7',
+        cname: '分行审批人',
+        values: [655111, 75511111, 75611111]
+      }
+    ]
   }
-]
+}
 
 class Table extends Component {
-  render() {
-    return (
-      <TableUI dataSource={table_data} columns={this.getColumns(table_data)} />
-    )
-  }
-
   constructor(props) {
     super(props)
-    this.state = {
-      data: []
+    this.data = table_data[props.name]
+  }
+
+  componentDidMount() {
+    const length = this.data.columns.length + 2
+    const diff = 1 / (length * 2)
+
+    console.log(this.props.pid)
+    for (let i = 1; i < length - 1; i++) {
+      this.props.jsp.addEndpoint(this.props.pid, anEndpoint, {
+        anchor: [0, (2 * i + 1) * diff, 0, -1]
+      })
+      this.props.jsp.addEndpoint(this.props.pid, anEndpoint, {
+        anchor: [1, (2 * i + 1) * diff, 0, -1]
+      })
     }
   }
 
-  getColumns(content) {
-    let col = []
-    content.forEach(data => {
-      const keys = Object.keys(data.data)
-      keys.forEach(key => {
-        col.push({
-          title: key,
-          dataIndex: `data.${key}`,
-          key: `data.${key}`,
-          render: text => (
-            <div style={{ position: 'relative', height: 'auto' }}>
-              <div>
-                <Select key={key} style={{ width: '100%' }}>
-                  {text.map(addr => (
-                    <Option value={addr.value} key={addr.key}>
-                      {addr.text}
-                    </Option>
-                  ))}
-                </Select>
-              </div>
-            </div>
-          )
-        })
-      })
-    })
-    return col
+  render() {
+    return (
+      <List
+        bordered={true}
+        header={
+          <div>
+            <span style={{ color: '#33CCFF' }}>{this.data.table_cname}</span>
+            <span style={{ float: 'right' }}>
+              <Icon type="close" />
+            </span>
+          </div>
+        }
+        footer={
+          <div>
+            <Input placeholder="数据条数" />
+          </div>
+        }
+        dataSource={this.data.columns}
+        renderItem={item => (
+          <List.Item id={item.key}>
+            <span style={{ float: 'left', width: '40%' }}>{item.cname}</span>
+            <Select style={{ width: '60%', float: 'right' }}>
+              {item.values.map(d => (
+                <Option key={d} value={d}>
+                  {d}
+                </Option>
+              ))}
+            </Select>
+          </List.Item>
+        )}
+      />
+    )
   }
 }
 
